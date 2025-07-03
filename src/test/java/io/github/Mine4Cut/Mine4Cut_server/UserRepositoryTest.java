@@ -15,21 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Testcontainers
 @SpringBootTest
 @ActiveProfiles("test")
-public class UserRepositoryTest {
-
-    @Container
-    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:15")
-            .withDatabaseName("testdb")
-            .withUsername("test")
-            .withPassword("test");
-
-    @DynamicPropertySource
-    static void overrideProps(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", postgres::getJdbcUrl);
-        registry.add("spring.datasource.username", postgres::getUsername);
-        registry.add("spring.datasource.password", postgres::getPassword);
-    }
-
+public class UserRepositoryTest extends AbstractIntegrationTest {
     @Autowired
     private UserRepository userRepository;
 
