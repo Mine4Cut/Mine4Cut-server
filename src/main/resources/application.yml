@@ -27,3 +27,4 @@ spring:
     Properties:
       hibernate:
         format_sql: true # SQL 쿼리를 보기 좋게 포맷팅
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
