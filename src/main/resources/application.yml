@@ -22,7 +22,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create # 생성 후 update
+      ddl-auto: update
     show_sql: true # 모든 SQL 쿼리를 로그에 출력
     Properties:
       hibernate:
