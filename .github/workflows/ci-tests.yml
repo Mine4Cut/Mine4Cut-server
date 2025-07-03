@@ -8,13 +8,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    services:
-      docker:
-        image: docker:28.2.2
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Set up JDK 17
         uses: actions/setup-java@v3
@@ -22,8 +17,15 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Set up Docker (for Testcontainers)
+        run: |
+          sudo systemctl start docker
+          docker --version
+
       - name: Grant execute permission for Gradle wrapper
         run: chmod +x gradlew
 
       - name: Run tests with Gradle
         run: ./gradlew test
+        env:
+          TESTCONTAINERS_RYUK_DISABLED: true
