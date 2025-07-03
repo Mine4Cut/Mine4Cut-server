@@ -20,12 +20,19 @@ jobs:
       - name: Start Docker daemon (for Testcontainers)
         run: |
           sudo systemctl start docker
-          docker info
 
       - name: Grant execute permission for Gradle wrapper
         run: chmod +x gradlew
 
-      - name: Run tests with Gradle
-        run: ./gradlew test
+      - name: Check Docker status
+        run: |
+          docker info || echo "Docker not available"
+          ls -l /var/run/docker.sock
+          whoami
+      
+      - name: Run tests with Gradle (verbose)
+        run: ./gradlew clean test --info
         env:
           TESTCONTAINERS_RYUK_DISABLED: true
+          TESTCONTAINERS_VERBOSE: true
+          DOCKER_HOST: unix:///var/run/docker.sock
