@@ -1,0 +1,48 @@
+package io.github.Mine4Cut.Mine4Cut_server.exception;
+
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.ServletWebRequest;
+import org.springframework.web.context.request.WebRequest;
+
+import java.util.Objects;
+
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+    @ExceptionHandler(CustomException.class)
+    public ResponseEntity<ErrorResponse> handleCustom(CustomException customException, WebRequest req) {
+        HttpHeaders resHeaders = new HttpHeaders();
+        resHeaders.add("Content-Type", "application/json;charset=UTF-8");
+
+        String path = ((ServletWebRequest) req).getRequest().getRequestURI();
+
+        ErrorCode errorCode = customException.getErrorCode();
+        ErrorResponse errorResponse = ErrorResponse.of(errorCode, path);
+
+        return ResponseEntity
+                .status(Objects.requireNonNull(errorCode.getStatus()))
+                .headers(resHeaders)
+                .body(errorResponse);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleAll(Exception ex, WebRequest req) {
+        HttpHeaders resHeaders = new HttpHeaders();
+        resHeaders.add("Content-Type", "application/json;charset=UTF-8");
+
+        String path = ((ServletWebRequest) req).getRequest().getRequestURI();
+
+        ErrorCode errorCode = ErrorCode.INTERNAL_ERROR;
+        ErrorResponse errorResponse = ErrorResponse.of(errorCode, path);
+
+        HttpStatus status = errorCode.getStatus();
+        if (status == null) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(errorResponse, resHeaders, status);
+    }
+}
