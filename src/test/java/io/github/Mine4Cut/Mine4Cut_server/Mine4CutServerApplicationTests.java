@@ -5,5 +5,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class Mine4CutServerApplicationTests extends AbstractIntegrationTest{
+    @Test
+    public void Test(){
 
+    }
 }

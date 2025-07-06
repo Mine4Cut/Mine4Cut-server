@@ -11,7 +11,7 @@ import org.springframework.web.context.request.WebRequest;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(CustomException.class)
-    public ResponseEntity<ErrorResponse> exceptionHandler(CustomException customException, WebRequest req) {
+    public ResponseEntity<ErrorResponse> handleCustom(CustomException customException, WebRequest req) {
         HttpHeaders resHeaders = new HttpHeaders();
         resHeaders.add("Content-Type", "application/json;charset=UTF-8");
 
@@ -22,6 +22,24 @@ public class GlobalExceptionHandler {
 
         HttpStatus status = HttpStatus.resolve(errorCode.getStatus());
         if(status == null) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(errorResponse, resHeaders, status);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleAll(Exception ex, WebRequest req) {
+        HttpHeaders resHeaders = new HttpHeaders();
+        resHeaders.add("Content-Type", "application/json;charset=UTF-8");
+
+        String path = ((ServletWebRequest) req).getRequest().getRequestURI();
+
+        ErrorCode errorCode = ErrorCode.INTERNAL_ERROR;
+        ErrorResponse errorResponse = ErrorResponse.of(errorCode, path);
+
+        HttpStatus status = HttpStatus.resolve(errorCode.getStatus());
+        if (status == null) {
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
 

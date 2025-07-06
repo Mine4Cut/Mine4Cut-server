@@ -6,7 +6,9 @@ import lombok.Getter;
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 @Getter
 public enum ErrorCode {
-    USER_NOT_FOUND(404, "1001", "존재하지 않는 유저입니다.");
+    USER_NOT_FOUND(404, "1001", "존재하지 않는 유저입니다."),
+
+    INTERNAL_ERROR(500, "INTERNAL_ERROR", "서버 내부 오류");
 
     private final int status;
     private final String code;
