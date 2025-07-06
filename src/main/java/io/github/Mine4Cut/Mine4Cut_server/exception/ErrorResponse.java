@@ -1,21 +1,23 @@
 package io.github.Mine4Cut.Mine4Cut_server.exception;
 
-import java.time.Instant;
+import org.springframework.http.HttpStatus;
+
+import java.time.LocalDateTime;
 
 public record ErrorResponse (
-        String timeStamp,
-        int status,
+        HttpStatus status,
         String errorCode,
         String message,
-        String path
-) {
+        String path,
+        String timestamp
+        ) {
     public static ErrorResponse of(ErrorCode errorCode, String path) {
         return new ErrorResponse(
-                Instant.now().toString(),
                 errorCode.getStatus(),
                 errorCode.getCode(),
                 errorCode.getMessage(),
-                path
-        );
+                path,
+                LocalDateTime.now().toString()
+                );
     }
 }

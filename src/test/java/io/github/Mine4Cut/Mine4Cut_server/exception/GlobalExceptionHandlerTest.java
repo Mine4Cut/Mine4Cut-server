@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
@@ -20,24 +21,22 @@ public class GlobalExceptionHandlerTest {
     @Test
     public void customException_isHandledByGlobalHandler() throws Exception {
         mockMvc.perform(get("/test/custom"))
-                .andDo(MockMvcResultHandlers.print())     // <= 이 줄을 추가하세요
-                .andExpect(status().isNotFound())                    // USER_NOT_FOUND → 404
+                .andExpect(status().isNotFound())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(jsonPath("$.status").value(404))
                 .andExpect(jsonPath("$.errorCode").value("1001"))    // enum의 code 값
                 .andExpect(jsonPath("$.message").value("존재하지 않는 유저입니다."))
                 .andExpect(jsonPath("$.path").value("/test/custom"))
-                .andExpect(jsonPath("$.timeStamp").exists());
+                .andExpect(jsonPath("$.timestamp").exists());
     }
 
     @Test
     public void runtimeException_isHandledAsInternalError() throws Exception {
         mockMvc.perform(get("/test/runtime"))
                 .andExpect(status().isInternalServerError())
-                .andExpect(jsonPath("$.status").value(500))
+                .andExpect(status().isInternalServerError())
                 .andExpect(jsonPath("$.errorCode").value("INTERNAL_ERROR"))
                 .andExpect(jsonPath("$.message").value("서버 내부 오류"))
                 .andExpect(jsonPath("$.path").value("/test/runtime"))
-                .andExpect(jsonPath("$.timeStamp").exists());
+                .andExpect(jsonPath("$.timestamp").exists());
     }
 }

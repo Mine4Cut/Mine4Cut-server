@@ -2,19 +2,20 @@ package io.github.Mine4Cut.Mine4Cut_server.exception;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 @Getter
 public enum ErrorCode {
-    USER_NOT_FOUND(404, "1001", "존재하지 않는 유저입니다."),
+    USER_NOT_FOUND(HttpStatus.NOT_FOUND, "1001", "존재하지 않는 유저입니다."),
 
-    INTERNAL_ERROR(500, "INTERNAL_ERROR", "서버 내부 오류");
+    INTERNAL_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "INTERNAL_ERROR", "서버 내부 오류");
 
-    private final int status;
+    private final HttpStatus status;
     private final String code;
     private final String message;
 
-    ErrorCode(final int status, final String code, final String message) {
+    ErrorCode(HttpStatus status, final String code, final String message) {
         this.status = status;
         this.code = code;
         this.message = message;

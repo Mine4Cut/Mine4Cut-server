@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 
+import java.util.Objects;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(CustomException.class)
@@ -20,12 +22,10 @@ public class GlobalExceptionHandler {
         ErrorCode errorCode = customException.getErrorCode();
         ErrorResponse errorResponse = ErrorResponse.of(errorCode, path);
 
-        HttpStatus status = HttpStatus.resolve(errorCode.getStatus());
-        if(status == null) {
-            status = HttpStatus.INTERNAL_SERVER_ERROR;
-        }
-
-        return new ResponseEntity<>(errorResponse, resHeaders, status);
+        return ResponseEntity
+                .status(Objects.requireNonNull(errorCode.getStatus()))
+                .headers(resHeaders)
+                .body(errorResponse);
     }
 
     @ExceptionHandler(Exception.class)
@@ -38,7 +38,7 @@ public class GlobalExceptionHandler {
         ErrorCode errorCode = ErrorCode.INTERNAL_ERROR;
         ErrorResponse errorResponse = ErrorResponse.of(errorCode, path);
 
-        HttpStatus status = HttpStatus.resolve(errorCode.getStatus());
+        HttpStatus status = errorCode.getStatus();
         if (status == null) {
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
