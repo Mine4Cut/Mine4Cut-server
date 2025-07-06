@@ -13,7 +13,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(CustomException.class)
     public ResponseEntity<ErrorResponse> exceptionHandler(CustomException customException, WebRequest req) {
         HttpHeaders resHeaders = new HttpHeaders();
-        resHeaders.add("Content-Type", "application/json;charset=UTF08");
+        resHeaders.add("Content-Type", "application/json;charset=UTF-8");
 
         String path = ((ServletWebRequest) req).getRequest().getRequestURI();
 
