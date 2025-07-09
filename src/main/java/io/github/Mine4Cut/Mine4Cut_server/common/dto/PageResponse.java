@@ -5,21 +5,22 @@ import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.domain.Page;
 
+import java.util.Collections;
 import java.util.List;
 
 @Getter
 @Builder
 @AllArgsConstructor
 public class PageResponse<T> {
-    private List<T> content;
-    private int page;
-    private int size;
-    private long totalElements;
-    private int totalPages;
+    private final List<T> content;
+    private final int page;
+    private final int size;
+    private final long totalElements;
+    private final int totalPages;
 
     public static <T> PageResponse<T> from(Page<T> pageData) {
         return PageResponse.<T>builder()
-                .content(pageData.getContent())
+                .content(Collections.unmodifiableList(pageData.getContent()))
                 .page(pageData.getNumber())
                 .size(pageData.getSize())
                 .totalElements(pageData.getTotalElements())
