@@ -2,6 +2,7 @@ package io.github.Mine4Cut.Mine4Cut_server.Authentication.jwt;
 
 
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,8 +16,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
-import java.util.Base64;
 import java.util.Date;
 
 @Slf4j
@@ -25,18 +27,15 @@ import java.util.Date;
 public class JwtTokenProvider {
     private final UserDetailsService userDetailsService;
 
-    @Value("${jwt.secret}")
-    private String secretKey;
-
-    @Value("${jwt.expiration}")
+    private SecretKey secretKey;
     private long validityInSeconds;
 
-    private Key signingKey;
-
-    @PostConstruct
-    public void init() {
-        byte[] keyBytes = Base64.getDecoder().decode(secretKey);
-        this.signingKey = Keys.hmacShaKeyFor(keyBytes);
+    public JwtTokenProvider(UserDetailsService userDetailsService,
+                            @Value("${jwt.secret}") String secret,
+                            @Value("${jwt.expiration}") long expiration){
+        this.userDetailsService = userDetailsService;
+        this.secretKey = Keys.hmacShaKeyFor(Decoders.BASE64URL.decode(secret));
+        this.validityInSeconds = expiration;
     }
 
     public String createToken(String username) {
@@ -52,7 +51,7 @@ public class JwtTokenProvider {
 
         return Jwts.builder()
                 .claims(claims)
-                .signWith(signingKey).compact();
+                .signWith(secretKey).compact();
     }
 
     public Authentication getAuthentication(String token) {
@@ -62,7 +61,7 @@ public class JwtTokenProvider {
 
     private String getUsername(String token) {
         return Jwts.parser()
-                .verifyWith(Keys.hmacShaKeyFor(signingKey.getEncoded()))
+                .verifyWith(secretKey)
                 .build()
                 .parseSignedClaims(token).getPayload().getSubject();
     }
@@ -78,7 +77,7 @@ public class JwtTokenProvider {
     public boolean validateToken(String token) {
         try {
             Jws<Claims> claims = Jwts.parser()
-                    .verifyWith(Keys.hmacShaKeyFor(signingKey.getEncoded()))
+                    .verifyWith(secretKey)
                     .build()
                     .parseSignedClaims(token);
             return true;
