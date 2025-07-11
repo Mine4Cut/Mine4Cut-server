@@ -32,3 +32,6 @@ spring:
 jwt:
   secret: PoR5ahCTbqB2MPlUtqq6nksLWgI/M1eVk19ZoVOppRY=
   expiration: 86400 // 초 단위
+
+cors:
+  allowed-origins: "http://localhost:3000,https://Mine4Cut.com"
