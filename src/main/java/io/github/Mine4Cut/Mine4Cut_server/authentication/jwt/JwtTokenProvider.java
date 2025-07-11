@@ -32,7 +32,7 @@ public class JwtTokenProvider {
                             @Value("${jwt.expiration}") long expiration){
         this.userDetailsService = userDetailsService;
         this.issuer = name;
-        this.secretKey = Keys.hmacShaKeyFor(Decoders.BASE64URL.decode(secret));
+        this.secretKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));
         this.validityInSeconds = expiration;
     }
 
