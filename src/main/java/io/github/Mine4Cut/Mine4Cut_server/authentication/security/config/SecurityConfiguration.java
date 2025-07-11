@@ -1,7 +1,7 @@
-package io.github.Mine4Cut.Mine4Cut_server.Authentication.security.config;
+package io.github.Mine4Cut.Mine4Cut_server.authentication.security.config;
 
-import io.github.Mine4Cut.Mine4Cut_server.Authentication.jwt.JwtAuthenticationFilter;
-import io.github.Mine4Cut.Mine4Cut_server.Authentication.jwt.JwtTokenProvider;
+import io.github.Mine4Cut.Mine4Cut_server.authentication.jwt.JwtAuthenticationFilter;
+import io.github.Mine4Cut.Mine4Cut_server.authentication.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

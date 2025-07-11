@@ -1,7 +1,7 @@
 package io.github.Mine4Cut.Mine4Cut_server.JwtTokenTest;
 
 
-import io.github.Mine4Cut.Mine4Cut_server.Authentication.jwt.JwtTokenProvider;
+import io.github.Mine4Cut.Mine4Cut_server.authentication.jwt.JwtTokenProvider;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.util.Base64;
