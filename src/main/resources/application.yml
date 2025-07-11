@@ -23,12 +23,12 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show_sql: true # 모든 SQL 쿼리를 로그에 출력
+    show_sql: true
     Properties:
       hibernate:
-        format_sql: true # SQL 쿼리를 보기 좋게 포맷팅
+        format_sql: true
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
 jwt:
-  secret: testKey
-  expiration: 86400000
+  secret: PoR5ahCTbqB2MPlUtqq6nksLWgI/M1eVk19ZoVOppRY=
+  expiration: 86400 // 초 단위
