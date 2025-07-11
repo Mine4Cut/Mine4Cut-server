@@ -3,29 +3,43 @@ package io.github.Mine4Cut.Mine4Cut_server.exception;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 
+import java.util.List;
 import java.util.Objects;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(CustomException.class)
-    public ResponseEntity<ErrorResponse> handleCustom(CustomException customException, WebRequest req) {
+    public ResponseEntity<ErrorResponse> handleCustom(CustomException ex, WebRequest req) {
         HttpHeaders resHeaders = new HttpHeaders();
         resHeaders.add("Content-Type", "application/json;charset=UTF-8");
 
         String path = ((ServletWebRequest) req).getRequest().getRequestURI();
 
-        ErrorCode errorCode = customException.getErrorCode();
+        ErrorCode errorCode = ex.getErrorCode();
         ErrorResponse errorResponse = ErrorResponse.of(errorCode, path);
 
         return ResponseEntity
                 .status(Objects.requireNonNull(errorCode.getStatus()))
                 .headers(resHeaders)
                 .body(errorResponse);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<?> handleValidation(MethodArgumentNotValidException ex) {
+        BindingResult result = ex.getBindingResult();
+
+        List<String> errors = result.getFieldErrors().stream()
+                .map(e -> e.getField() + ": " + e.getDefaultMessage())
+                .toList();
+
+        return ResponseEntity.badRequest().body(errors);
     }
 
     @ExceptionHandler(Exception.class)

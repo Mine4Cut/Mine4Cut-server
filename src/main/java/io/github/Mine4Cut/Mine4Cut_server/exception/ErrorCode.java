@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 public enum ErrorCode {
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "1001", "존재하지 않는 유저입니다."),
 
+    INVALID_INPUT(HttpStatus.BAD_REQUEST, "INVALID_INPUT", "잘못된 입력 요청입니다."),
+
     INTERNAL_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "INTERNAL_ERROR", "서버 내부 오류");
 
     private final HttpStatus status;
