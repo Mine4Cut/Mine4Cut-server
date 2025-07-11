@@ -2,6 +2,7 @@ package io.github.Mine4Cut.Mine4Cut_server.exception;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(controllers = TestController.class)
 @Import({GlobalExceptionHandler.class})
+@AutoConfigureMockMvc(addFilters = false)
 public class GlobalExceptionHandlerTest {
     @Autowired
     private MockMvc mockMvc;
