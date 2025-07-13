@@ -30,7 +30,7 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
 jwt:
-  secret: PoR5ahCTbqB2MPlUtqq6nksLWgI/M1eVk19ZoVOppRY=
+  secret: j5uR21FT_2Z8Z7IRW6nq1zBNlFsX9wo7Xrz7eOWk4yY
   expiration: 86400 #초 단위
 
 cors:

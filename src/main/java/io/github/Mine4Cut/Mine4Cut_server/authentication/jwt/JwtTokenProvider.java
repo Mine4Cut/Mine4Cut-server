@@ -22,9 +22,9 @@ import java.util.Date;
 public class JwtTokenProvider {
     private final UserDetailsService userDetailsService;
 
-    private String issuer;
-    private SecretKey secretKey;
-    private Long validityInSeconds;
+    private final String issuer;
+    private final SecretKey secretKey;
+    private final Long validityInSeconds;
 
     public JwtTokenProvider(UserDetailsService userDetailsService,
                             @Value("${spring.application.name}") String name,
@@ -32,7 +32,7 @@ public class JwtTokenProvider {
                             @Value("${jwt.expiration}") long expiration){
         this.userDetailsService = userDetailsService;
         this.issuer = name;
-        this.secretKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));
+        this.secretKey = Keys.hmacShaKeyFor(Decoders.BASE64URL.decode(secret));
         this.validityInSeconds = expiration;
     }
 
