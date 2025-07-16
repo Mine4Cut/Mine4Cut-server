@@ -27,7 +27,7 @@ public class JwtTokenProvider {
     private final Long validityInSeconds;
 
     public JwtTokenProvider(UserDetailsService userDetailsService,
-                            @Value("${spring.application.name}") String name,
+                            @Value("${jwt.issuer}") String name,
                             @Value("${jwt.secret}") String secret,
                             @Value("${jwt.expiration}") long expiration){
         this.userDetailsService = userDetailsService;
