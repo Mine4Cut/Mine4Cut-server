@@ -27,7 +27,8 @@ public class User {
     private String email;
 
     // TODO
-    private String socialInfo;
+    /* private String socialInfo;
     private String interests;
     private String frame;
+    */
 }
