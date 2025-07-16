@@ -22,4 +22,6 @@ public class UserDto {
     @Size(min = 2, max = 10)
     private String name;
 
+    @NotBlank
+    private String email;
 }
