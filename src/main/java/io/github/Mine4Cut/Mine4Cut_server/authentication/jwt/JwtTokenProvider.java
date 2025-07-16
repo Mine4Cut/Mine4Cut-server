@@ -52,7 +52,7 @@ public class JwtTokenProvider {
                 .signWith(secretKey).compact();
     }
 
-    public Authentication getAuthentication(String token) {
+    public Authentication createAuthentication(String token) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(this.getUsername(token));
         return new UsernamePasswordAuthenticationToken(
                 userDetails,

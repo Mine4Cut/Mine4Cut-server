@@ -7,6 +7,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -38,7 +39,6 @@ public class JwtTokenProviderTest {
 
         byte[] keyBytes = Keys.secretKeyFor(io.jsonwebtoken.SignatureAlgorithm.HS256).getEncoded();
         secretKey = Encoders.BASE64URL.encode(keyBytes);
-        System.out.println("Test SecretKey: " + secretKey);
 
         jwtTokenProvider = new JwtTokenProvider(
                 userDetailsService,
@@ -49,11 +49,10 @@ public class JwtTokenProviderTest {
     }
 
     @Test
+    @DisplayName("토큰 생성 시점 및 유효 기간에 대한 검증")
     void createTokenTest() {
         String username = "dorothy";
         String token = jwtTokenProvider.createToken(username);
-
-        System.out.println("Test Token: " + token);
 
         Claims claims = Jwts.parser()
                 .verifyWith(Keys.hmacShaKeyFor(Decoders.BASE64URL.decode(secretKey)))
@@ -75,12 +74,14 @@ public class JwtTokenProviderTest {
     }
 
     @Test
+    @DisplayName("Jwt 토큰이 유효하지 않을 시 예외를 발생시킵니다.")
     void validateTokenTest() throws Exception {
         String token = jwtTokenProvider.createToken("dorothy");
         jwtTokenProvider.validateToken(token);
     }
 
     @Test
+    @DisplayName("")
     void getAuthenticationTest() {
         String username = "dorothy";
         UserDetails user = new User(username, "pwd", Collections.emptyList());
@@ -95,6 +96,7 @@ public class JwtTokenProviderTest {
     }
 
     @Test
+    @DisplayName("유효 기간이 지난 토큰을 생성하고 검증 메소드에서 예외를 체크합니다.")
     void expiredTokenTest() {
         JwtTokenProvider expiredProvider = new JwtTokenProvider(
                 userDetailsService,
