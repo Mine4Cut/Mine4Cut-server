@@ -82,13 +82,13 @@ public class JwtTokenProviderTest {
 
     @Test
     @DisplayName("Jwt 토큰으로 Authentication 토큰을 생성하고 이 토큰에 대해 검증합니다.")
-    void createAuthenticationTest() {
+    void generateAuthenticationTest() {
         String username = "dorothy";
         UserDetails user = new User(username, "pwd", Collections.emptyList());
         when(userDetailsService.loadUserByUsername(username)).thenReturn(user);
 
         String token = jwtTokenProvider.createToken(username);
-        var auth = jwtTokenProvider.createAuthentication(token);
+        var auth = jwtTokenProvider.generateAuthentication(token);
 
         assertThat(auth).isInstanceOf(UsernamePasswordAuthenticationToken.class);
         assertThat(auth.getName()).isEqualTo(username);
