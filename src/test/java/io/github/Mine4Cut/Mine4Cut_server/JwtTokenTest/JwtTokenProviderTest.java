@@ -49,7 +49,7 @@ public class JwtTokenProviderTest {
     }
 
     @Test
-    @DisplayName("토큰 생성 시점 및 유효 기간에 대한 검증")
+    @DisplayName("토큰 생성 시점 및 유효 기간에 대해 검증합니다.")
     void createTokenTest() {
         String username = "dorothy";
         String token = jwtTokenProvider.createToken(username);
@@ -81,14 +81,14 @@ public class JwtTokenProviderTest {
     }
 
     @Test
-    @DisplayName("")
-    void getAuthenticationTest() {
+    @DisplayName("Jwt 토큰으로 Authentication 토큰을 생성하고 이 토큰에 대해 검증합니다.")
+    void createAuthenticationTest() {
         String username = "dorothy";
         UserDetails user = new User(username, "pwd", Collections.emptyList());
         when(userDetailsService.loadUserByUsername(username)).thenReturn(user);
 
         String token = jwtTokenProvider.createToken(username);
-        var auth = jwtTokenProvider.getAuthentication(token);
+        var auth = jwtTokenProvider.createAuthentication(token);
 
         assertThat(auth).isInstanceOf(UsernamePasswordAuthenticationToken.class);
         assertThat(auth.getName()).isEqualTo(username);
