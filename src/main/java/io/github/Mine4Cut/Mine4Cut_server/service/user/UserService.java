@@ -11,6 +11,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,13 +19,16 @@ public class UserService {
     private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public UserService (UserRepository userRepository,
                         AuthenticationManager authenticationManager,
-                        JwtTokenProvider jwtTokenProvider) {
+                        JwtTokenProvider jwtTokenProvider,
+                        BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Transactional
@@ -36,7 +40,7 @@ public class UserService {
 
         User user = User.builder()
                 .username(req.username())
-                .password(req.password())
+                .password(bCryptPasswordEncoder.encode(req.password()))
                 .name(req.name())
                 .build();
 

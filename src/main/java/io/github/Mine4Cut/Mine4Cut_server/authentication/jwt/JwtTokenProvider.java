@@ -20,17 +20,17 @@ import java.util.Date;
 @Slf4j
 @Component
 public class JwtTokenProvider {
-    private final UserDetailsService userDetailsService;
+    private final UserDetailsService customUserDetailsService;
 
     private String issuer;
     private SecretKey secretKey;
     private Long validityInSeconds;
 
-    public JwtTokenProvider(UserDetailsService userDetailsService,
+    public JwtTokenProvider(UserDetailsService customUserDetailsService,
                             @Value("${jwt.issuer}") String name,
                             @Value("${jwt.secret}") String secret,
                             @Value("${jwt.expiration}") long expiration){
-        this.userDetailsService = userDetailsService;
+        this.customUserDetailsService = customUserDetailsService;
         this.issuer = name;
         this.secretKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));
         this.validityInSeconds = expiration;
@@ -53,7 +53,7 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(String token) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(this.getUsername(token));
+        UserDetails userDetails = customUserDetailsService.loadUserByUsername(this.getUsername(token));
         return new UsernamePasswordAuthenticationToken(
                 userDetails,
                 token,
