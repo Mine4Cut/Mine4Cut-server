@@ -1,8 +1,7 @@
 package io.github.Mine4Cut.Mine4Cut_server.service.user;
 
-import io.github.Mine4Cut.Mine4Cut_server.api.auth.AuthResponse;
 import io.github.Mine4Cut.Mine4Cut_server.api.user.dto.SignInRequest;
-import io.github.Mine4Cut.Mine4Cut_server.api.user.dto.SingUpRequest;
+import io.github.Mine4Cut.Mine4Cut_server.api.user.dto.SignUpRequest;
 import io.github.Mine4Cut.Mine4Cut_server.api.user.dto.UserDto;
 import io.github.Mine4Cut.Mine4Cut_server.authentication.jwt.JwtTokenProvider;
 import io.github.Mine4Cut.Mine4Cut_server.domain.user.User;
@@ -33,7 +32,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserDto signUp(SingUpRequest req) {
+    public UserDto signUp(SignUpRequest req) {
         if (userRepository.existsByUsername(req.username()))
             throw new IllegalStateException("이미 사용 중인 아이디입니다.");
         if (userRepository.existsByName(req.name()))
