@@ -10,18 +10,23 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 public class ApiResponse<T> {
-    private final boolean success;
     private final String message;
     private final T data;
     @Builder.Default
     private final LocalDateTime timestamp = LocalDateTime.now();
 
-    public static <T> ApiResponse<T> of(boolean success, String message, T data) {
+    public static <T> ApiResponse<T> of(String message, T data) {
         return ApiResponse.<T>builder()
-                .success(success)
                 .message(message)
                 .data(data)
                 .timestamp(LocalDateTime.now())
+                .build();
+    }
+
+    public static <T> ApiResponse<T> ofSuccess(T data) {
+        return ApiResponse.<T>builder()
+                .message("SUCCESS")
+                .data(data)
                 .build();
     }
 }
