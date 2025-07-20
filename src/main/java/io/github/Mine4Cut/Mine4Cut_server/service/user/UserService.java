@@ -1,8 +1,9 @@
 package io.github.Mine4Cut.Mine4Cut_server.service.user;
 
 import io.github.Mine4Cut.Mine4Cut_server.api.auth.AuthResponse;
-import io.github.Mine4Cut.Mine4Cut_server.api.user.LogInRequest;
-import io.github.Mine4Cut.Mine4Cut_server.api.user.SingUpRequest;
+import io.github.Mine4Cut.Mine4Cut_server.api.user.dto.SignInRequest;
+import io.github.Mine4Cut.Mine4Cut_server.api.user.dto.SingUpRequest;
+import io.github.Mine4Cut.Mine4Cut_server.api.user.dto.UserDto;
 import io.github.Mine4Cut.Mine4Cut_server.authentication.jwt.JwtTokenProvider;
 import io.github.Mine4Cut.Mine4Cut_server.domain.user.User;
 import io.github.Mine4Cut.Mine4Cut_server.domain.user.UserRepository;
@@ -32,7 +33,7 @@ public class UserService {
     }
 
     @Transactional
-    public void signUp(SingUpRequest req) {
+    public UserDto signUp(SingUpRequest req) {
         if (userRepository.existsByUsername(req.username()))
             throw new IllegalStateException("이미 사용 중인 아이디입니다.");
         if (userRepository.existsByName(req.name()))
@@ -42,19 +43,21 @@ public class UserService {
                 .username(req.username())
                 .password(bCryptPasswordEncoder.encode(req.password()))
                 .name(req.name())
+                .email(req.email())
                 .build();
 
         userRepository.save(user);
+
+        return new UserDto(user);
     }
 
-    public AuthResponse logIn(LogInRequest req) throws Exception {
+    public String signIn(SignInRequest req) throws Exception {
         try {
             UsernamePasswordAuthenticationToken token =
                     new UsernamePasswordAuthenticationToken(req.username(), req.password());
             Authentication auth = authenticationManager.authenticate(token);
 
-            String jwt = jwtTokenProvider.createToken(auth.getName());
-            return new AuthResponse(jwt);
+            return jwtTokenProvider.createToken(req.username());
         } catch (AuthenticationException ex) {
             throw new Exception("아이디 또는 비밀번호가 올바르지 않습니다.");
         }

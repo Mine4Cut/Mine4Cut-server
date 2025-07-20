@@ -49,15 +49,18 @@ public class SecurityConfiguration {
         return httpSecurity
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
-                .sessionManagement((sessionManagement) -> sessionManagement
+
+                .sessionManagement(
+                        (sessionManagement) -> sessionManagement
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
 
                 .authorizeHttpRequests((registry) -> registry
                         // 회원가입, 로그인은 모든 사용자 가능
-                        .requestMatchers(HttpMethod.POST, "/api/users").permitAll()
-                        .requestMatchers("/api/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers("/users").permitAll()
+                        .requestMatchers("/auth/sign-in").permitAll()
                         .anyRequest().authenticated() // 이외에는 인증된 사용자만
                 )
 
