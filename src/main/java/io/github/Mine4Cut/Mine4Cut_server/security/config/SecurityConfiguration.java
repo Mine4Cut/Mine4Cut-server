@@ -58,8 +58,8 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests((registry) -> registry
                         // 회원가입, 로그인은 모든 사용자 가능
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                        .requestMatchers("/users").permitAll()
-                        .requestMatchers("/auth/sign-in").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/users").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/auth/sign-in").permitAll()
                         .anyRequest().authenticated() // 이외에는 인증된 사용자만
                 )
 
