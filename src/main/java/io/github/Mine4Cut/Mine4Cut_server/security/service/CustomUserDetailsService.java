@@ -1,4 +1,4 @@
-package io.github.Mine4Cut.Mine4Cut_server.authentication.security;
+package io.github.Mine4Cut.Mine4Cut_server.security.service;
 
 import io.github.Mine4Cut.Mine4Cut_server.domain.user.User;
 import io.github.Mine4Cut.Mine4Cut_server.domain.user.UserRepository;

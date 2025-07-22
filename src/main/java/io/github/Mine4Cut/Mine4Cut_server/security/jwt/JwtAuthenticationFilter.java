@@ -1,4 +1,4 @@
-package io.github.Mine4Cut.Mine4Cut_server.authentication.jwt;
+package io.github.Mine4Cut.Mine4Cut_server.security.jwt;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
