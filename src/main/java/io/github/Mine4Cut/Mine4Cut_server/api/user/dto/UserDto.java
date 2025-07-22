@@ -1,6 +1,7 @@
 package io.github.Mine4Cut.Mine4Cut_server.api.user.dto;
 
 import io.github.Mine4Cut.Mine4Cut_server.domain.user.User;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,7 @@ public class UserDto {
     private String name;
 
     @NotBlank
+    @Email
     private String email;
 
     public UserDto(User user) {
