@@ -1,4 +1,4 @@
-package io.github.Mine4Cut.Mine4Cut_server.authentication.jwt;
+package io.github.Mine4Cut.Mine4Cut_server.security.jwt;
 
 
 import io.jsonwebtoken.*;
