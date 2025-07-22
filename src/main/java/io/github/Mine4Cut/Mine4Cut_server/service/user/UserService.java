@@ -7,6 +7,7 @@ import io.github.Mine4Cut.Mine4Cut_server.authentication.jwt.JwtTokenProvider;
 import io.github.Mine4Cut.Mine4Cut_server.domain.user.User;
 import io.github.Mine4Cut.Mine4Cut_server.domain.user.UserRepository;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -14,6 +15,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class UserService {
     private final UserRepository userRepository;
@@ -50,15 +52,20 @@ public class UserService {
         return new UserDto(user);
     }
 
-    public String signIn(SignInRequest req) throws Exception {
+    public String signIn(SignInRequest req) throws AuthenticationException {
         try {
             UsernamePasswordAuthenticationToken token =
                     new UsernamePasswordAuthenticationToken(req.username(), req.password());
             Authentication auth = authenticationManager.authenticate(token);
 
-            return jwtTokenProvider.createToken(req.username());
+            return jwtTokenProvider.createToken(auth.getName());
         } catch (AuthenticationException ex) {
-            throw new Exception("아이디 또는 비밀번호가 올바르지 않습니다.");
+            throw new AuthenticationException("아이디 또는 비밀번호가 올바르지 않습니다.") {
+                @Override
+                public String getMessage() {
+                    return super.getMessage();
+                }
+            };
         }
     }
 }
