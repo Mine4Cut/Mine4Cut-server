@@ -15,7 +15,7 @@ public class SignInController {
     private final UserService userService;
 
     @PostMapping("/auth/sign-in")
-    public AuthResponse signIn(@RequestBody @Valid SignInRequest req) throws Exception {
+    public AuthResponse signIn(@RequestBody @Valid SignInRequest req) {
         String accessToken = userService.signIn(req);
 
         return AuthResponse.of(accessToken);

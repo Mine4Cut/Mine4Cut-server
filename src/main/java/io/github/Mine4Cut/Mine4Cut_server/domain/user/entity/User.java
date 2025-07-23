@@ -21,7 +21,7 @@ public class User {
     private String password;
 
     @Column(nullable = false, unique = true, length = 10)
-    private String name; // 최대 10자리
+    private String nickname; // 최대 10자리
 
     @Column
     private String email;

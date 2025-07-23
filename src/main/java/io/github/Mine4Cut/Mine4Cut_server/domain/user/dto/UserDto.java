@@ -23,7 +23,7 @@ public class UserDto {
 
     @NotBlank
     @Size(min = 2, max = 10)
-    private String name;
+    private String nickname;
 
     @NotBlank
     @Email
@@ -32,7 +32,7 @@ public class UserDto {
     public UserDto(User user) {
         this.username = user.getUsername();
         // this.password = user.getPassword();
-        this.name = user.getName();
+        this.nickname = user.getNickname();
         this.email = user.getEmail();
     }
 }

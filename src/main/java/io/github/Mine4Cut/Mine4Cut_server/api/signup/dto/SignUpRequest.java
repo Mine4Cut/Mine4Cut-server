@@ -1,4 +1,4 @@
-package io.github.Mine4Cut.Mine4Cut_server.api.singup.dto;
+package io.github.Mine4Cut.Mine4Cut_server.api.signup.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -7,6 +7,6 @@ import jakarta.validation.constraints.Size;
 public record SignUpRequest(
         @NotBlank @Size(min = 1, max = 50) String username,
         @NotBlank @Size(min = 1, max = 50) String password,
-        @NotBlank @Size(min = 2, max = 10) String name,
+        @NotBlank @Size(min = 2, max = 10) String nickname,
         @NotBlank @Email String email
 ){}
