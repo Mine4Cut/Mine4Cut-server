@@ -1,7 +1,7 @@
 package io.github.Mine4Cut.Mine4Cut_server.security.service;
 
-import io.github.Mine4Cut.Mine4Cut_server.domain.user.User;
-import io.github.Mine4Cut.Mine4Cut_server.domain.user.UserRepository;
+import io.github.Mine4Cut.Mine4Cut_server.domain.user.entity.User;
+import io.github.Mine4Cut.Mine4Cut_server.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

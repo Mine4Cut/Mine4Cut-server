@@ -1,4 +1,4 @@
-package io.github.Mine4Cut.Mine4Cut_server.api.auth;
+package io.github.Mine4Cut.Mine4Cut_server.api.auth.dto;
 
 public record AuthResponse(
         String accessToken

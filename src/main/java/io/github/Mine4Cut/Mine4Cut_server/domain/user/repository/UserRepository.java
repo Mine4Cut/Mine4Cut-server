@@ -1,5 +1,6 @@
-package io.github.Mine4Cut.Mine4Cut_server.domain.user;
+package io.github.Mine4Cut.Mine4Cut_server.domain.user.repository;
 
+import io.github.Mine4Cut.Mine4Cut_server.domain.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

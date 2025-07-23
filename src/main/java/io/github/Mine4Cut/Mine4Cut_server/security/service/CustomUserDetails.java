@@ -1,6 +1,6 @@
 package io.github.Mine4Cut.Mine4Cut_server.security.service;
 
-import io.github.Mine4Cut.Mine4Cut_server.domain.user.User;
+import io.github.Mine4Cut.Mine4Cut_server.domain.user.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
