@@ -1,4 +1,4 @@
-package io.github.Mine4Cut.Mine4Cut_server.domain.user;
+package io.github.Mine4Cut.Mine4Cut_server.domain.user.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

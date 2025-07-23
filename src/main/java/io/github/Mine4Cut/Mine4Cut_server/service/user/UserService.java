@@ -1,11 +1,11 @@
 package io.github.Mine4Cut.Mine4Cut_server.service.user;
 
-import io.github.Mine4Cut.Mine4Cut_server.api.user.dto.SignInRequest;
-import io.github.Mine4Cut.Mine4Cut_server.api.user.dto.SignUpRequest;
-import io.github.Mine4Cut.Mine4Cut_server.api.user.dto.UserDto;
+import io.github.Mine4Cut.Mine4Cut_server.api.signin.dto.SignInRequest;
+import io.github.Mine4Cut.Mine4Cut_server.api.singup.dto.SignUpRequest;
+import io.github.Mine4Cut.Mine4Cut_server.domain.user.dto.UserDto;
 import io.github.Mine4Cut.Mine4Cut_server.security.jwt.JwtTokenProvider;
-import io.github.Mine4Cut.Mine4Cut_server.domain.user.User;
-import io.github.Mine4Cut.Mine4Cut_server.domain.user.UserRepository;
+import io.github.Mine4Cut.Mine4Cut_server.domain.user.entity.User;
+import io.github.Mine4Cut.Mine4Cut_server.domain.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;

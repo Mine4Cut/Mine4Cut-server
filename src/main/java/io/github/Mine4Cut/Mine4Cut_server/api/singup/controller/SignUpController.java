@@ -1,7 +1,7 @@
-package io.github.Mine4Cut.Mine4Cut_server.api.user.controller;
+package io.github.Mine4Cut.Mine4Cut_server.api.singup.controller;
 
-import io.github.Mine4Cut.Mine4Cut_server.api.user.dto.SignUpRequest;
-import io.github.Mine4Cut.Mine4Cut_server.api.user.dto.UserDto;
+import io.github.Mine4Cut.Mine4Cut_server.api.singup.dto.SignUpRequest;
+import io.github.Mine4Cut.Mine4Cut_server.domain.user.dto.UserDto;
 import io.github.Mine4Cut.Mine4Cut_server.common.dto.ApiResponse;
 import io.github.Mine4Cut.Mine4Cut_server.service.user.UserService;
 import jakarta.validation.Valid;
