@@ -5,6 +5,9 @@ import io.github.Mine4Cut.Mine4Cut_server.domain.frameLike.entity.FrameLike;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table
 @Getter
@@ -19,12 +22,15 @@ public class Frame extends BaseEntity {
     @Column(nullable = false)
     private Long userId;
 
+    @Column(nullable = false)
+    private String usernameSnapshot;
+
     @Column(nullable = false/*, length = 몇 글자로 제한할 지 정해야 함*/)
     private String frameName;
 
     @Column(nullable = false)
     private String imageUrl;
 
-    @Column(nullable = false)
-    private FrameLike frameLike;
+    @OneToMany(mappedBy = "frame", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FrameLike> likes = new ArrayList<>();
 }
