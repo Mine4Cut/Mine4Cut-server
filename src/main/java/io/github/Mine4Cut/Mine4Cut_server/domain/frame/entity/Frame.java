@@ -1,13 +1,16 @@
 package io.github.Mine4Cut.Mine4Cut_server.domain.frame.entity;
 
 import io.github.Mine4Cut.Mine4Cut_server.common.entity.BaseEntity;
+import io.github.Mine4Cut.Mine4Cut_server.domain.frameLike.entity.FrameLike;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
 public class Frame extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,8 +23,8 @@ public class Frame extends BaseEntity {
     private String frameName;
 
     @Column(nullable = false)
-    private String userName;
+    private String imageUrl;
 
-    @Column
-    private int like = 0;
+    @Column(nullable = false)
+    private FrameLike frameLike;
 }
