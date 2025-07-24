@@ -1,3 +1,5 @@
+name: Run Tests with Testcontainers
+
 on:
   push:
     branches: [ main, develop ]
@@ -8,8 +10,12 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Set up JDK 17
         uses: actions/setup-java@v3
@@ -17,22 +23,23 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Start Docker daemon (for Testcontainers)
-        run: |
-          sudo systemctl start docker
+      # optional: 캐시 설정 (build 속도 향상)
+      - name: Gradle cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
 
       - name: Grant execute permission for Gradle wrapper
         run: chmod +x gradlew
 
-      - name: Check Docker status
-        run: |
-          docker info || echo "Docker not available"
-          ls -l /var/run/docker.sock
-          whoami
-      
-      - name: Run tests with Gradle (verbose)
+      - name: Run tests with Gradle (Testcontainers enabled)
         run: ./gradlew clean test --info
         env:
           TESTCONTAINERS_RYUK_DISABLED: true
+          TESTCONTAINERS_CHECKS_DISABLE: true
           TESTCONTAINERS_VERBOSE: true
-          DOCKER_HOST: unix:///var/run/docker.sock
