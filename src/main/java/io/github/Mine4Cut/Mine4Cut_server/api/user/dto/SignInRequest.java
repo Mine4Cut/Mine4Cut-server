@@ -1,4 +1,4 @@
-package io.github.Mine4Cut.Mine4Cut_server.api.signin.dto;
+package io.github.Mine4Cut.Mine4Cut_server.api.user.dto;
 
 import jakarta.validation.constraints.NotBlank;
 
