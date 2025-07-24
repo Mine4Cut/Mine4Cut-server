@@ -1,7 +1,7 @@
 package io.github.Mine4Cut.Mine4Cut_server.service.user;
 
-import io.github.Mine4Cut.Mine4Cut_server.api.signin.dto.SignInRequest;
-import io.github.Mine4Cut.Mine4Cut_server.api.signup.dto.SignUpRequest;
+import io.github.Mine4Cut.Mine4Cut_server.api.user.dto.SignInRequest;
+import io.github.Mine4Cut.Mine4Cut_server.api.user.dto.SignUpRequest;
 import io.github.Mine4Cut.Mine4Cut_server.domain.user.dto.UserDto;
 import io.github.Mine4Cut.Mine4Cut_server.security.jwt.JwtTokenProvider;
 import io.github.Mine4Cut.Mine4Cut_server.domain.user.entity.User;

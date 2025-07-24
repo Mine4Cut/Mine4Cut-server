@@ -1,6 +1,6 @@
-package io.github.Mine4Cut.Mine4Cut_server.api.signup.controller;
+package io.github.Mine4Cut.Mine4Cut_server.api.user.controller;
 
-import io.github.Mine4Cut.Mine4Cut_server.api.signup.dto.SignUpRequest;
+import io.github.Mine4Cut.Mine4Cut_server.api.user.dto.SignUpRequest;
 import io.github.Mine4Cut.Mine4Cut_server.domain.user.dto.UserDto;
 import io.github.Mine4Cut.Mine4Cut_server.common.dto.ApiResponse;
 import io.github.Mine4Cut.Mine4Cut_server.service.user.UserService;

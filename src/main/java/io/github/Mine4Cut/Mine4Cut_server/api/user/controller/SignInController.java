@@ -1,7 +1,7 @@
-package io.github.Mine4Cut.Mine4Cut_server.api.signin.controller;
+package io.github.Mine4Cut.Mine4Cut_server.api.user.controller;
 
 import io.github.Mine4Cut.Mine4Cut_server.api.auth.dto.AuthResponse;
-import io.github.Mine4Cut.Mine4Cut_server.api.signin.dto.SignInRequest;
+import io.github.Mine4Cut.Mine4Cut_server.api.user.dto.SignInRequest;
 import io.github.Mine4Cut.Mine4Cut_server.service.user.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
