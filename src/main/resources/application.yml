@@ -30,8 +30,9 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
 jwt:
-  secret: j5uR21FT_2Z8Z7IRW6nq1zBNlFsX9wo7Xrz7eOWk4yY
+  secret: PoR5ahCTbqB2MPlUtqq6nksLWgI/M1eVk19ZoVOppRY=
   expiration: 86400 #초 단위
+  issuer: Mine4Cut.com
 
 cors:
   allowed-origins: "http://localhost:3000,https://Mine4Cut.com"
