@@ -1,6 +1,6 @@
 package io.github.Mine4Cut.Mine4Cut_server.JwtTokenTest;
 
-import io.github.Mine4Cut.Mine4Cut_server.authentication.jwt.JwtTokenProvider;
+import io.github.Mine4Cut.Mine4Cut_server.security.jwt.JwtTokenProvider;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -38,7 +38,7 @@ public class JwtTokenProviderTest {
         MockitoAnnotations.openMocks(this);
 
         byte[] keyBytes = Keys.secretKeyFor(io.jsonwebtoken.SignatureAlgorithm.HS256).getEncoded();
-        secretKey = Encoders.BASE64URL.encode(keyBytes);
+        secretKey = Encoders.BASE64.encode(keyBytes);
 
         jwtTokenProvider = new JwtTokenProvider(
                 userDetailsService,
@@ -55,7 +55,7 @@ public class JwtTokenProviderTest {
         String token = jwtTokenProvider.createToken(username);
 
         Claims claims = Jwts.parser()
-                .verifyWith(Keys.hmacShaKeyFor(Decoders.BASE64URL.decode(secretKey)))
+                .verifyWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey)))
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
@@ -88,7 +88,7 @@ public class JwtTokenProviderTest {
         when(userDetailsService.loadUserByUsername(username)).thenReturn(user);
 
         String token = jwtTokenProvider.createToken(username);
-        var auth = jwtTokenProvider.generateAuthentication(token);
+        var auth = jwtTokenProvider.getAuthentication(token);
 
         assertThat(auth).isInstanceOf(UsernamePasswordAuthenticationToken.class);
         assertThat(auth.getName()).isEqualTo(username);

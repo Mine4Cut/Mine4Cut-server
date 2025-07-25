@@ -1,0 +1,38 @@
+package io.github.Mine4Cut.Mine4Cut_server.domain.user.dto;
+
+import io.github.Mine4Cut.Mine4Cut_server.domain.user.entity.User;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserDto {
+    @NotBlank
+    @Size(min = 1, max = 50)
+    private String username;
+
+    // UserDto에 패스워드를 담아서 전달할 이유가 있을까
+    /*@NotBlank
+    @Size(min = 1, max = 50)
+    private String password;*/
+
+    @NotBlank
+    @Size(min = 2, max = 10)
+    private String nickname;
+
+    @NotBlank
+    @Email
+    private String email;
+
+    public UserDto(User user) {
+        this.username = user.getUsername();
+        // this.password = user.getPassword();
+        this.nickname = user.getNickname();
+        this.email = user.getEmail();
+    }
+}
