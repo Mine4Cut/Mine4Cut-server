@@ -2,7 +2,6 @@ package io.github.Mine4Cut.Mine4Cut_server.common.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
-import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;

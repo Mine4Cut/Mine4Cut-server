@@ -1,71 +1,42 @@
 package io.github.Mine4Cut.Mine4Cut_server.service.user;
 
-import io.github.Mine4Cut.Mine4Cut_server.api.user.dto.SignInRequest;
 import io.github.Mine4Cut.Mine4Cut_server.api.user.dto.SignUpRequest;
 import io.github.Mine4Cut.Mine4Cut_server.domain.user.dto.UserDto;
-import io.github.Mine4Cut.Mine4Cut_server.security.jwt.JwtTokenProvider;
 import io.github.Mine4Cut.Mine4Cut_server.domain.user.entity.User;
 import io.github.Mine4Cut.Mine4Cut_server.domain.user.repository.UserRepository;
-import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class UserService {
-    private final UserRepository userRepository;
-    private final AuthenticationManager authenticationManager;
-    private final JwtTokenProvider jwtTokenProvider;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserService (UserRepository userRepository,
-                        AuthenticationManager authenticationManager,
-                        JwtTokenProvider jwtTokenProvider,
-                        BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.userRepository = userRepository;
-        this.authenticationManager = authenticationManager;
-        this.jwtTokenProvider = jwtTokenProvider;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
+    private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Transactional
     public UserDto signUp(SignUpRequest req) {
-        if (userRepository.existsByUsername(req.username()))
+        if (userRepository.existsByUsername(req.username())) {
             throw new IllegalStateException("이미 사용 중인 아이디입니다.");
-        if (userRepository.existsByNickname(req.nickname()))
+        }
+        if (userRepository.existsByNickname(req.nickname())) {
             throw new IllegalStateException("이미 사용 중인 닉네임입니다.");
+        }
 
         User user = User.builder()
-                .username(req.username())
-                .password(bCryptPasswordEncoder.encode(req.password()))
-                .nickname(req.nickname())
-                .email(req.email())
-                .build();
+            .username(req.username())
+            .password(bCryptPasswordEncoder.encode(req.password()))
+            .nickname(req.nickname())
+            .email(req.email())
+            .build();
 
         userRepository.save(user);
 
         return new UserDto(user);
     }
 
-    public String signIn(SignInRequest req) throws AuthenticationException {
-        try {
-            UsernamePasswordAuthenticationToken token =
-                    new UsernamePasswordAuthenticationToken(req.username(), req.password());
-            Authentication auth = authenticationManager.authenticate(token);
-
-            return jwtTokenProvider.createToken(auth.getName());
-        } catch (AuthenticationException ex) {
-            throw new AuthenticationException("아이디 또는 비밀번호가 올바르지 않습니다.") {
-                @Override
-                public String getMessage() {
-                    return super.getMessage();
-                }
-            };
-        }
-    }
 }
