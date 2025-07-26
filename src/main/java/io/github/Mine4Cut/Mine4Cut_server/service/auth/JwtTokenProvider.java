@@ -41,13 +41,6 @@ public class JwtTokenProvider {
             .signWith(secretKey).compact();
     }
 
-    private String getUsername(String token) {
-        return Jwts.parser()
-            .verifyWith(secretKey)
-            .build()
-            .parseSignedClaims(token).getPayload().getSubject();
-    }
-
     public String resolveToken(HttpServletRequest request) throws Exception {
         String bearerToken = request.getHeader("Authorization");
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {

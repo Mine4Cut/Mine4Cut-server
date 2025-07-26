@@ -10,6 +10,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -21,7 +22,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtTokenProvider jwtTokenProvider;
-    private final JwtUserService jwtUserSevice;
+    private final JwtUserService jwtUserService;
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
@@ -32,17 +33,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
-        HttpServletResponse response,
-        FilterChain filterChain
+    protected void doFilterInternal(@NonNull HttpServletRequest request,
+        @NonNull HttpServletResponse response,
+        @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
         try {
             String token = jwtTokenProvider.resolveToken(request);
             ParsedJwtInfo parsedJwtInfo = jwtTokenProvider.parseToken(token);
-            Authentication authentication = jwtUserSevice.toAuthentication(parsedJwtInfo);
+            Authentication authentication = jwtUserService.toAuthentication(parsedJwtInfo);
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            User user = jwtUserSevice.findUser(parsedJwtInfo);
+            User user = jwtUserService.findUser(parsedJwtInfo);
             UserContextHolder.setUser(user);
         } catch (Exception e) {
             log.error("JWT Authentication Failed: {}", e.getMessage());

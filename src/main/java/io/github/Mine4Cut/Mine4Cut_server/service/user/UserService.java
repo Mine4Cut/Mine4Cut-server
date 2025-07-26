@@ -4,10 +4,8 @@ import io.github.Mine4Cut.Mine4Cut_server.api.user.dto.SignUpRequest;
 import io.github.Mine4Cut.Mine4Cut_server.domain.user.dto.UserDto;
 import io.github.Mine4Cut.Mine4Cut_server.domain.user.entity.User;
 import io.github.Mine4Cut.Mine4Cut_server.domain.user.repository.UserRepository;
-import io.github.Mine4Cut.Mine4Cut_server.service.auth.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,8 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final AuthenticationManager authenticationManager;
-    private final JwtTokenProvider jwtTokenProvider;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Transactional
