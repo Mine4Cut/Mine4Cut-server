@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDto {
+
     @NotBlank
     @Size(min = 1, max = 50)
     private String username;

@@ -1,5 +1,7 @@
 package io.github.Mine4Cut.Mine4Cut_server.exception;
 
+import java.util.List;
+import java.util.Objects;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,11 +12,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 
-import java.util.List;
-import java.util.Objects;
-
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
     @ExceptionHandler(CustomException.class)
     public ResponseEntity<ErrorResponse> handleCustom(CustomException ex, WebRequest req) {
         HttpHeaders resHeaders = new HttpHeaders();
@@ -26,9 +26,9 @@ public class GlobalExceptionHandler {
         ErrorResponse errorResponse = ErrorResponse.of(errorCode, path);
 
         return ResponseEntity
-                .status(Objects.requireNonNull(errorCode.getStatus()))
-                .headers(resHeaders)
-                .body(errorResponse);
+            .status(Objects.requireNonNull(errorCode.getStatus()))
+            .headers(resHeaders)
+            .body(errorResponse);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -36,8 +36,8 @@ public class GlobalExceptionHandler {
         BindingResult result = ex.getBindingResult();
 
         List<String> errors = result.getFieldErrors().stream()
-                .map(e -> e.getField() + ": " + e.getDefaultMessage())
-                .toList();
+            .map(e -> e.getField() + ": " + e.getDefaultMessage())
+            .toList();
 
         return ResponseEntity.badRequest().body(errors);
     }
