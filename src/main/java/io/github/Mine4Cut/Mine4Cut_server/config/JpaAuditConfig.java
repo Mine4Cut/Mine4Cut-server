@@ -1,4 +1,4 @@
-package io.github.Mine4Cut.Mine4Cut_server.domain.config;
+package io.github.Mine4Cut.Mine4Cut_server.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
