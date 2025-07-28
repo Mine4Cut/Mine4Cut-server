@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 @Getter
 public enum ErrorCode {
-    NOT_FOUND(HttpStatus.NOT_FOUND, "NOT_FOUND"),
+    NOT_FOUND(HttpStatus.NOT_FOUND,"NOT_FOUND"),
 
     BAD_REQUEST(HttpStatus.BAD_REQUEST, "INVALID_INPUT"),
 
