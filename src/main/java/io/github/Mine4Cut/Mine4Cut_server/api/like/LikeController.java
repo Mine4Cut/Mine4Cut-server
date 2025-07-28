@@ -1,4 +1,4 @@
-package io.github.Mine4Cut.Mine4Cut_server.api.frame.controller;
+package io.github.Mine4Cut.Mine4Cut_server.api.like;
 
 import io.github.Mine4Cut.Mine4Cut_server.common.dto.ApiResponse;
 import io.github.Mine4Cut.Mine4Cut_server.service.auth.dto.CustomUserDetails;

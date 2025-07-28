@@ -1,9 +1,6 @@
-package io.github.Mine4Cut.Mine4Cut_server.domain.user.dto;
+package io.github.Mine4Cut.Mine4Cut_server.service.user.dto;
 
 import io.github.Mine4Cut.Mine4Cut_server.domain.user.entity.User;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

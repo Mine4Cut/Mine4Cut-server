@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface FrameRepository extends JpaRepository<Frame, Long> {
+
     List<Frame> findAllByUserId(Long userId);
 
     Optional<Frame> findByFrameName(String frameName);

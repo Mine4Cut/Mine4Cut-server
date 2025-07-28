@@ -6,8 +6,8 @@ public record LikeDto(
     boolean liked,
     int likeCount,
     LocalDateTime likedTime
-)
-{
+) {
+
     public static LikeDto of(boolean liked, int likeCount) {
         return liked
             ? new LikeDto(true, likeCount, LocalDateTime.now()) :

@@ -1,13 +1,43 @@
 package io.github.Mine4Cut.Mine4Cut_server.service.frame;
 
+import io.github.Mine4Cut.Mine4Cut_server.api.frame.dto.CreateFrameRequest;
+import io.github.Mine4Cut.Mine4Cut_server.domain.frame.entity.Frame;
 import io.github.Mine4Cut.Mine4Cut_server.domain.frame.repository.FrameRepository;
+import io.github.Mine4Cut.Mine4Cut_server.exception.NotFoundException;
+import io.github.Mine4Cut.Mine4Cut_server.service.frame.dto.CreateFrameDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.nio.file.AccessDeniedException;
 
 @Service
+@RequiredArgsConstructor
 public class FrameService {
-    FrameRepository frameRepository;
 
-    public void createFrame() {
+    private final FrameRepository frameRepository;
 
+    @Transactional
+    public CreateFrameDto createFrame(Long userId, String nickname, CreateFrameRequest req) {
+        frameRepository.save(Frame.builder()
+            .userId(userId)
+            .nicknameSnapshot(nickname)
+            .frameName(req.frameName())
+            .imageUrl(req.imageUrl())
+            .build());
+
+        return CreateFrameDto.of(userId, nickname, req.frameName(), req.imageUrl());
+    }
+
+    @Transactional
+    public void deleteFrame(Long userId, Long frameId) throws AccessDeniedException {
+        Frame frame = frameRepository.findById(frameId)
+            .orElseThrow(() -> new NotFoundException("프레임을 찾을 수 없습니다."));
+
+        if(!frame.getUserId().equals(userId)) {
+            throw new AccessDeniedException("본인의 프레임만 삭제할 수 있습니다.");
+        }
+
+        frameRepository.delete(frame);
     }
 }

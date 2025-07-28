@@ -1,7 +1,7 @@
 package io.github.Mine4Cut.Mine4Cut_server.service.user;
 
 import io.github.Mine4Cut.Mine4Cut_server.api.user.dto.SignUpRequest;
-import io.github.Mine4Cut.Mine4Cut_server.domain.user.dto.UserDto;
+import io.github.Mine4Cut.Mine4Cut_server.service.user.dto.UserDto;
 import io.github.Mine4Cut.Mine4Cut_server.domain.user.entity.User;
 import io.github.Mine4Cut.Mine4Cut_server.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

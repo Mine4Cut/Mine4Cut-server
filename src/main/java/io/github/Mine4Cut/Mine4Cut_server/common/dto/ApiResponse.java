@@ -29,4 +29,11 @@ public class ApiResponse<T> {
             .data(data)
             .build();
     }
+
+    public static ApiResponse<?> ofDeletion() {
+        return ApiResponse.builder()
+            .message("DELETED")
+            .data(null)
+            .build();
+    }
 }
