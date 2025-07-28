@@ -8,6 +8,8 @@ import java.util.Optional;
 
 public interface FrameRepository extends JpaRepository<Frame, Long> {
     List<Frame> findAllByUserId(Long userId);
+
     Optional<Frame> findByFrameName(String frameName);
+
     boolean existsByFrameName(String frameName);
 }

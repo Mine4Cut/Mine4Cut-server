@@ -11,11 +11,11 @@ public record ErrorResponse(
     String timestamp
 ) {
 
-    public static ErrorResponse of(ErrorCode errorCode, String path) {
+    public static ErrorResponse of(ErrorCode errorCode, Exception ex, String path) {
         return new ErrorResponse(
             errorCode.getStatus(),
             errorCode.getCode(),
-            errorCode.getMessage(),
+            ex.getMessage(),
             path,
             LocalDateTime.now().toString()
         );

@@ -7,15 +7,13 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class FrameDto {
-    @NotBlank
     private Long userId;
 
-    @NotBlank
+    private String nickname;
+
     private String frameName;
 
-    @NotBlank
-    private String userName;
+    private String imageUrl;
 
-    @NotBlank
-    private int like;
+    private int likeCount;
 }

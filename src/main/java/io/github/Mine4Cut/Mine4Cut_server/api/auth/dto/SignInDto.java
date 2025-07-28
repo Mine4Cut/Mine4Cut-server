@@ -1,4 +1,4 @@
-package io.github.Mine4Cut.Mine4Cut_server.service.user.dto;
+package io.github.Mine4Cut.Mine4Cut_server.api.auth.dto;
 
 import java.time.LocalDateTime;
 

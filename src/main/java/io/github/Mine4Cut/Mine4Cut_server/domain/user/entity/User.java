@@ -55,6 +55,7 @@ public class User {
     public boolean isUser() {
         return role == Role.USER;
     }
+    
     // TODO
     /*
     private String socialInfo;

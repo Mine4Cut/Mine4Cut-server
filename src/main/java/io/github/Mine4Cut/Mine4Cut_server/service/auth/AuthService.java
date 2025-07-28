@@ -5,7 +5,7 @@ import io.github.Mine4Cut.Mine4Cut_server.domain.user.entity.User;
 import io.github.Mine4Cut.Mine4Cut_server.domain.user.repository.UserRepository;
 import io.github.Mine4Cut.Mine4Cut_server.exception.NotFoundException;
 import io.github.Mine4Cut.Mine4Cut_server.service.auth.dto.JwtUserInfo;
-import io.github.Mine4Cut.Mine4Cut_server.service.user.dto.SignInDto;
+import io.github.Mine4Cut.Mine4Cut_server.api.auth.dto.SignInDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

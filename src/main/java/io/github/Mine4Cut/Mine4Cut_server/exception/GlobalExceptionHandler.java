@@ -23,7 +23,7 @@ public class GlobalExceptionHandler {
         String path = ((ServletWebRequest) req).getRequest().getRequestURI();
 
         ErrorCode errorCode = ex.getErrorCode();
-        ErrorResponse errorResponse = ErrorResponse.of(errorCode, path);
+        ErrorResponse errorResponse = ErrorResponse.of(errorCode, ex, path);
 
         return ResponseEntity
             .status(Objects.requireNonNull(errorCode.getStatus()))
@@ -50,7 +50,7 @@ public class GlobalExceptionHandler {
         String path = ((ServletWebRequest) req).getRequest().getRequestURI();
 
         ErrorCode errorCode = ErrorCode.INTERNAL_ERROR;
-        ErrorResponse errorResponse = ErrorResponse.of(errorCode, path);
+        ErrorResponse errorResponse = ErrorResponse.of(errorCode, ex, path);
 
         HttpStatus status = errorCode.getStatus();
         if (status == null) {
@@ -58,5 +58,21 @@ public class GlobalExceptionHandler {
         }
 
         return new ResponseEntity<>(errorResponse, resHeaders, status);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleNotFound(NotFoundException ex, WebRequest req) {
+        HttpHeaders resHeaders = new HttpHeaders();
+        resHeaders.add("Content-Type", "application/json;charset=UTF-8");
+
+        String path = ((ServletWebRequest) req).getRequest().getRequestURI();
+
+        ErrorCode errorCode = ErrorCode.NOT_FOUND;
+        ErrorResponse errorResponse = ErrorResponse.of(errorCode, ex,path);
+
+        return ResponseEntity
+            .status(Objects.requireNonNull(errorCode.getStatus()))
+            .headers(resHeaders)
+            .body(errorResponse);
     }
 }

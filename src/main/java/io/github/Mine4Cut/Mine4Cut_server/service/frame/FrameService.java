@@ -8,6 +8,6 @@ public class FrameService {
     FrameRepository frameRepository;
 
     public void createFrame() {
-        
+
     }
 }

@@ -23,14 +23,23 @@ public class Frame extends BaseEntity {
     private Long userId;
 
     @Column(nullable = false)
-    private String usernameSnapshot;
+    private String nicknameSnapshot;
 
-    @Column(nullable = false/*, length = 몇 글자로 제한할 지 정해야 함*/)
+    //TODO 프레임 이름 글자수 제한 논의해야함.
+    @Column(nullable = false)
     private String frameName;
 
     @Column(nullable = false)
     private String imageUrl;
 
-    @OneToMany(mappedBy = "frame", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<FrameLike> likes = new ArrayList<>();
+    @Column
+    private int likeCount;
+
+    public void decreaseLike() {
+        this.likeCount--;
+    }
+
+    public void increaseLike() {
+        this.likeCount++;
+    }
 }

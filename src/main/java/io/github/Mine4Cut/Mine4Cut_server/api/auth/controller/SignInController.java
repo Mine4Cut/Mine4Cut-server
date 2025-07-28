@@ -1,9 +1,9 @@
-package io.github.Mine4Cut.Mine4Cut_server.api.auth;
+package io.github.Mine4Cut.Mine4Cut_server.api.auth.controller;
 
 import io.github.Mine4Cut.Mine4Cut_server.api.auth.dto.AuthResponse;
 import io.github.Mine4Cut.Mine4Cut_server.api.user.dto.SignInRequest;
 import io.github.Mine4Cut.Mine4Cut_server.service.auth.AuthService;
-import io.github.Mine4Cut.Mine4Cut_server.service.user.dto.SignInDto;
+import io.github.Mine4Cut.Mine4Cut_server.api.auth.dto.SignInDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;

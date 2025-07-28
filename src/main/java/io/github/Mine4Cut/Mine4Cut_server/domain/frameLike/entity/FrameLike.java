@@ -1,10 +1,19 @@
 package io.github.Mine4Cut.Mine4Cut_server.domain.frameLike.entity;
 
+import io.github.Mine4Cut.Mine4Cut_server.common.entity.BaseEntity;
 import io.github.Mine4Cut.Mine4Cut_server.domain.frame.entity.Frame;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 @Entity
-public class FrameLike {
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"userId", "frameId"}))
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
+public class FrameLike extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -12,7 +21,7 @@ public class FrameLike {
     @Column
     private Long userId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "frame_id")
-    private Frame frame;
+    @Column
+    private Long frameId;
+
 }
