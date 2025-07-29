@@ -22,7 +22,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show_sql: true
     Properties:
       hibernate:
@@ -36,3 +36,9 @@ jwt:
 
 cors:
   allowed-origins: "http://localhost:3000,https://Mine4Cut.com"
+
+aws:
+  bucket: mine-4-cut-frame
+  region: ap-northeast-2
+  accessKey:
+  secretKey:

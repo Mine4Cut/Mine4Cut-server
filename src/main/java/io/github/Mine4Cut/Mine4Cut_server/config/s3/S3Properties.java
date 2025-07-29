@@ -1,22 +1,23 @@
-package io.github.Mine4Cut.Mine4Cut_server.config;
+package io.github.Mine4Cut.Mine4Cut_server.config.s3;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
-@ConfigurationProperties(prefix = "jwt")
+@ConfigurationProperties(prefix = "aws")
 @Data
 @Component
 @Validated
-public class JwtProperties {
+public class S3Properties {
 
     @NotBlank
-    private String issuer;
+    private String bucket;
     @NotBlank
-    private String secret;
-    @NotNull
-    private Long expiration;
+    private String region;
+    @NotBlank
+    private String accessKey;
+    @NotBlank
+    private String secretKey;
 }

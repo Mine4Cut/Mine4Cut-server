@@ -1,4 +1,4 @@
-package io.github.Mine4Cut.Mine4Cut_server.config;
+package io.github.Mine4Cut.Mine4Cut_server.config.jwt;
 
 import io.github.Mine4Cut.Mine4Cut_server.service.auth.JwtTokenProvider;
 import io.jsonwebtoken.io.Decoders;

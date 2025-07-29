@@ -1,7 +1,7 @@
 package io.github.Mine4Cut.Mine4Cut_server.service.auth;
 
 
-import io.github.Mine4Cut.Mine4Cut_server.config.JwtProperties;
+import io.github.Mine4Cut.Mine4Cut_server.config.jwt.JwtProperties;
 import io.github.Mine4Cut.Mine4Cut_server.service.auth.dto.JwtUserInfo;
 import io.github.Mine4Cut.Mine4Cut_server.service.auth.dto.ParsedJwtInfo;
 import io.jsonwebtoken.Claims;

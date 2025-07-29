@@ -1,6 +1,5 @@
 package io.github.Mine4Cut.Mine4Cut_server.service.frame;
 
-import io.github.Mine4Cut.Mine4Cut_server.api.frame.dto.CreateFrameRequest;
 import io.github.Mine4Cut.Mine4Cut_server.domain.frame.entity.Frame;
 import io.github.Mine4Cut.Mine4Cut_server.domain.frame.repository.FrameRepository;
 import io.github.Mine4Cut.Mine4Cut_server.exception.NotFoundException;
@@ -8,7 +7,6 @@ import io.github.Mine4Cut.Mine4Cut_server.service.frame.dto.CreateFrameDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.nio.file.AccessDeniedException;
 
 @Service
@@ -18,15 +16,19 @@ public class FrameService {
     private final FrameRepository frameRepository;
 
     @Transactional
-    public CreateFrameDto createFrame(Long userId, String nickname, CreateFrameRequest req) {
+    public CreateFrameDto createFrame(Long userId,
+                                      String nickname,
+                                      String frameName,
+                                      String imageUrl
+    ) {
         frameRepository.save(Frame.builder()
             .userId(userId)
             .nicknameSnapshot(nickname)
-            .frameName(req.frameName())
-            .imageUrl(req.imageUrl())
+            .frameName(frameName)
+            .imageUrl(imageUrl)
             .build());
 
-        return CreateFrameDto.of(userId, nickname, req.frameName(), req.imageUrl());
+        return CreateFrameDto.of(userId, nickname, frameName, imageUrl);
     }
 
     @Transactional
