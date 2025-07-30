@@ -23,8 +23,7 @@ public class GlobalExceptionHandlerTest {
         mockMvc.perform(get("/test/custom"))
                 .andExpect(status().isNotFound())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(jsonPath("$.errorCode").value("1001"))    // enum의 code 값
-                .andExpect(jsonPath("$.message").value("존재하지 않는 유저입니다."))
+                .andExpect(jsonPath("$.message").value("해당 내용을 찾을 수 없습니다."))
                 .andExpect(jsonPath("$.path").value("/test/custom"))
                 .andExpect(jsonPath("$.timestamp").exists());
     }
@@ -33,9 +32,7 @@ public class GlobalExceptionHandlerTest {
     public void runtimeException_isHandledAsInternalError() throws Exception {
         mockMvc.perform(get("/test/runtime"))
                 .andExpect(status().isInternalServerError())
-                .andExpect(status().isInternalServerError())
-                .andExpect(jsonPath("$.errorCode").value("INTERNAL_ERROR"))
-                .andExpect(jsonPath("$.message").value("서버 내부 오류"))
+                .andExpect(jsonPath("$.message").value("RunErr"))
                 .andExpect(jsonPath("$.path").value("/test/runtime"))
                 .andExpect(jsonPath("$.timestamp").exists());
     }

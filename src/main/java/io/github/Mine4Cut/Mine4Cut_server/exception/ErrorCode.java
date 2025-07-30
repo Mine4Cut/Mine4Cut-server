@@ -11,7 +11,7 @@ public enum ErrorCode {
 
     BAD_REQUEST(HttpStatus.BAD_REQUEST, "INVALID_INPUT"),
 
-    INTERNAL_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "INTERNAL_ERROR"),
+    INTERNAL_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "서버 내부 오류"),
 
     DELETION_FAILED(HttpStatus.FAILED_DEPENDENCY, "삭제에 실패하였습니다.");
 

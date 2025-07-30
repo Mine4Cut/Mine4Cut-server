@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
     @GetMapping("/custom")
     public void customError() {
-        throw new CustomException(ErrorCode.NOT_FOUND, "해당 내용을 찾을 수 없습니다.");
+        throw new CustomException(ErrorCode.NOT_FOUND);
     }
 
     @GetMapping("/runtime")
