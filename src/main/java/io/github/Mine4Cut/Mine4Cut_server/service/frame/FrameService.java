@@ -2,6 +2,7 @@ package io.github.Mine4Cut.Mine4Cut_server.service.frame;
 
 import io.github.Mine4Cut.Mine4Cut_server.domain.frame.entity.Frame;
 import io.github.Mine4Cut.Mine4Cut_server.domain.frame.repository.FrameRepository;
+import io.github.Mine4Cut.Mine4Cut_server.domain.frameLike.repository.FrameLikeRepository;
 import io.github.Mine4Cut.Mine4Cut_server.exception.NotFoundException;
 import io.github.Mine4Cut.Mine4Cut_server.service.frame.dto.CreateFrameDto;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ public class FrameService {
 
     private final FrameRepository frameRepository;
 
-    private final ApplicationEventPublisher publisher;
+    private final FrameLikeRepository frameLikeRepository;
 
     @Transactional
     public CreateFrameDto createFrame(Long userId,
@@ -44,6 +45,8 @@ public class FrameService {
         }
 
         frameRepository.delete(frame);
+
+        frameLikeRepository.deleteByFrameId(frameId);
 
         return frame.getImageUrl();
     }

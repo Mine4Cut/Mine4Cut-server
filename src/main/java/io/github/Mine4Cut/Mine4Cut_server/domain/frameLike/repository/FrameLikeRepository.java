@@ -10,7 +10,9 @@ public interface FrameLikeRepository extends JpaRepository<FrameLike, Long> {
 
     boolean existsByUserIdAndFrameId(Long userId, Long frameId);
 
-    @Modifying(clearAutomatically = true)
+    @Modifying
     @Query("DELETE FROM FrameLike fl WHERE fl.userId = :userId AND fl.frameId = :frameId")
     int deleteLike(@Param("userId") Long userId, @Param("frameId") Long frameId);
+
+    void deleteByFrameId(Long frameId);
 }
