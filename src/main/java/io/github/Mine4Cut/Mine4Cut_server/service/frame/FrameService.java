@@ -5,7 +5,10 @@ import io.github.Mine4Cut.Mine4Cut_server.domain.frame.repository.FrameRepositor
 import io.github.Mine4Cut.Mine4Cut_server.domain.frameLike.repository.FrameLikeRepository;
 import io.github.Mine4Cut.Mine4Cut_server.exception.NotFoundException;
 import io.github.Mine4Cut.Mine4Cut_server.service.frame.dto.CreateFrameDto;
+import io.github.Mine4Cut.Mine4Cut_server.service.frame.dto.FrameDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.nio.file.AccessDeniedException;
@@ -48,5 +51,12 @@ public class FrameService {
         frameLikeRepository.deleteByFrameId(frameId);
 
         return frame.getImageUrl();
+    }
+
+    public Page<FrameDto> searchFrames(
+        String keyword, Pageable pageable
+    ) {
+        return frameRepository.
+            searchByKeyword(keyword, pageable).map(FrameDto::from);
     }
 }

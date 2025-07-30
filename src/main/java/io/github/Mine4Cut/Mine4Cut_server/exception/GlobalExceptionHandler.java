@@ -31,7 +31,7 @@ public class GlobalExceptionHandler {
         String path = ((ServletWebRequest) req).getRequest().getRequestURI();
 
         ErrorCode errorCode = ex.getErrorCode();
-        ErrorResponse errorResponse = ErrorResponse.of(errorCode.getCode(), ex.getMessage(), path);
+        ErrorResponse errorResponse = ErrorResponse.of(errorCode.getMessage(), ex.getMessage(), path);
 
         return ResponseEntity
             .status(Objects.requireNonNull(errorCode.getStatus()))
@@ -57,7 +57,7 @@ public class GlobalExceptionHandler {
         String path = ((ServletWebRequest) req).getRequest().getRequestURI();
 
         ErrorCode errorCode = ErrorCode.INTERNAL_ERROR;
-        ErrorResponse errorResponse = ErrorResponse.of(errorCode.getCode(), ex.getMessage(), path);
+        ErrorResponse errorResponse = ErrorResponse.of(errorCode.getMessage(), ex.getMessage(), path);
 
         HttpStatus status = errorCode.getStatus();
         if (status == null) {
@@ -78,6 +78,6 @@ public class GlobalExceptionHandler {
         return ResponseEntity
             .status(errorCode.getStatus())
             .headers(resHeaders)
-            .body(ErrorResponse.of(errorCode.getCode(), ex.getReason(), path));
+            .body(ErrorResponse.of(errorCode.getMessage(), ex.getReason(), path));
     }
 }
