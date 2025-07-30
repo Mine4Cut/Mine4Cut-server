@@ -10,7 +10,8 @@ public record FrameDto(
     String frameName,
     String imageUrl,
     LocalDateTime createdAt,
-    int likeCount
+    int likeCount,
+    int saveCount
 ) {
     public static FrameDto from(Frame f) {
         return new FrameDto(
@@ -19,7 +20,8 @@ public record FrameDto(
             f.getFrameName(),
             f.getImageUrl(),
             f.getCreatedAt(),
-            f.getLikeCount()
+            f.getLikeCount(),
+            f.getSaveCount()
         );
     }
 }

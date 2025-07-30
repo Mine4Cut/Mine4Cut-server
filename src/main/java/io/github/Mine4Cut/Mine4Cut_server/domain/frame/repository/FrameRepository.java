@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public interface FrameRepository extends JpaRepository<Frame, Long> {
 
-    List<Frame> findAllByUserId(Long userId);
+    Page<Frame> findAllByUserId(Long userId, Pageable pageable);
 
     Optional<Frame> findByFrameName(String frameName);
 
@@ -20,8 +20,17 @@ public interface FrameRepository extends JpaRepository<Frame, Long> {
 
     @Query("""
       select f from Frame f
-       where lower(f.frameName) like lower(concat('%', :kw, '%'))
-          or lower(f.nicknameSnapshot) like lower(concat('%', :kw, '%'))
+      where lower(f.frameName) like lower(concat('%', :kw, '%'))
+      or lower(f.nicknameSnapshot) like lower(concat('%', :kw, '%'))
     """)
     Page<Frame> searchByKeyword(@Param("kw") String keyword, Pageable pageable);
+
+    @Query("""
+      SELECT f FROM Frame f JOIN SavedFrame s ON f.id = s.frameId
+      WHERE s.userId = :userId
+      ORDER BY s.createdAt DESC
+    """)
+    Page<Frame> findSavedFramesByUserId(
+        @Param("userId") Long userId, Pageable pageable
+    );
 }
