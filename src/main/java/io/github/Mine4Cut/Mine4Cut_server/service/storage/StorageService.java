@@ -4,6 +4,8 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import io.github.Mine4Cut.Mine4Cut_server.config.s3.S3Properties;
+import io.github.Mine4Cut.Mine4Cut_server.exception.CustomException;
+import io.github.Mine4Cut.Mine4Cut_server.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -39,8 +41,12 @@ public class StorageService {
     }
 
     @Transactional
-    public void deleteFrameImage(String imageUrl) {
-        amazonS3.deleteObject(s3Properties.getBucket(), getFileNameFromUrl(imageUrl));
+    public void deleteFrameImage(String imageUrl) throws CustomException{
+        try {
+            amazonS3.deleteObject(s3Properties.getBucket(), getFileNameFromUrl(imageUrl));
+        } catch (CustomException e) {
+            throw new CustomException(ErrorCode.DELETION_FAILED);
+        }
     }
 
     private String getPublicUrl(String fileName) {
