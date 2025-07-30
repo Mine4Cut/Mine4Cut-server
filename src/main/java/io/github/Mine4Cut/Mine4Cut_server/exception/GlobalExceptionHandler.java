@@ -3,7 +3,6 @@ package io.github.Mine4Cut.Mine4Cut_server.exception;
 import java.util.List;
 import java.util.Objects;
 
-import io.github.Mine4Cut.Mine4Cut_server.common.dto.ApiResponse;
 import io.github.Mine4Cut.Mine4Cut_server.exception.dto.ErrorResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
