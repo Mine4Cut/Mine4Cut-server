@@ -40,5 +40,5 @@ cors:
 aws:
   bucket: mine-4-cut-frame
   region: ap-northeast-2
-  accessKey:
-  secretKey:
+  accessKey: dummy
+  secretKey: dummy
