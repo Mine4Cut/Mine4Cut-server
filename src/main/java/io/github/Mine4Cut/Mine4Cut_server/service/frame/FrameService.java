@@ -6,7 +6,6 @@ import io.github.Mine4Cut.Mine4Cut_server.domain.frameLike.repository.FrameLikeR
 import io.github.Mine4Cut.Mine4Cut_server.exception.NotFoundException;
 import io.github.Mine4Cut.Mine4Cut_server.service.frame.dto.CreateFrameDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.nio.file.AccessDeniedException;

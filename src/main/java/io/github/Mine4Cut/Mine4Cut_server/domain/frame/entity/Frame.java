@@ -39,4 +39,12 @@ public class Frame extends BaseEntity {
     public void increaseLike() {
         this.likeCount++;
     }
+
+    public void renameFrame(String frameName) {
+        this.frameName = frameName;
+    }
+
+    public void renameNickname(String nickname) {
+        this.nicknameSnapshot = nickname;
+    }
 }
