@@ -5,6 +5,7 @@ import io.github.Mine4Cut.Mine4Cut_server.domain.frame.repository.FrameRepositor
 import io.github.Mine4Cut.Mine4Cut_server.exception.NotFoundException;
 import io.github.Mine4Cut.Mine4Cut_server.service.frame.dto.CreateFrameDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.nio.file.AccessDeniedException;
@@ -14,6 +15,8 @@ import java.nio.file.AccessDeniedException;
 public class FrameService {
 
     private final FrameRepository frameRepository;
+
+    private final ApplicationEventPublisher publisher;
 
     @Transactional
     public CreateFrameDto createFrame(Long userId,
@@ -32,7 +35,7 @@ public class FrameService {
     }
 
     @Transactional
-    public void deleteFrame(Long userId, Long frameId) throws AccessDeniedException {
+    public String deleteFrame(Long userId, Long frameId) throws AccessDeniedException {
         Frame frame = frameRepository.findById(frameId)
             .orElseThrow(() -> new NotFoundException("프레임을 찾을 수 없습니다."));
 
@@ -41,5 +44,7 @@ public class FrameService {
         }
 
         frameRepository.delete(frame);
+
+        return frame.getImageUrl();
     }
 }

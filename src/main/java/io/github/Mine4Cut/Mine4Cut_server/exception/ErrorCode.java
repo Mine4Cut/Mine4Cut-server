@@ -11,7 +11,9 @@ public enum ErrorCode {
 
     BAD_REQUEST(HttpStatus.BAD_REQUEST, "INVALID_INPUT"),
 
-    INTERNAL_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "INTERNAL_ERROR");
+    INTERNAL_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "INTERNAL_ERROR"),
+
+    DELETION_FAILED(HttpStatus.FAILED_DEPENDENCY, "DELETION_FAILED");
 
     private final HttpStatus status;
     private final String code;

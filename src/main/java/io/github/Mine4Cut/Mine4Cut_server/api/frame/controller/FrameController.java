@@ -56,7 +56,8 @@ public class FrameController {
         @PathVariable Long frameId,
         @AuthenticationPrincipal CustomUserDetails user
     ) throws AccessDeniedException {
-        frameService.deleteFrame(user.getUserId(), frameId);
+
+        storageService.deleteFrameImage(frameService.deleteFrame(user.getUserId(), frameId));
 
         return ApiResponse.ofDeletion();
     }

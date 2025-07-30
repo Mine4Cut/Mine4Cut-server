@@ -25,8 +25,7 @@ public class StorageService {
     // TODO 파일 확장자 어떤걸로 받을지
     @Transactional
     public String uploadFrame(MultipartFile file) throws IOException {
-        log.info(s3Properties.getBucket());
-        String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+        String fileName = getFileName(file);
 
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentType(file.getContentType());
@@ -39,15 +38,23 @@ public class StorageService {
         return getPublicUrl(fileName);
     }
 
-    /*@Transactional
-    public void deleteFrame() {
-        amazonS3.deleteObject(s3Properties.getBucket());
-    }*/
+    @Transactional
+    public void deleteFrameImage(String imageUrl) {
+        amazonS3.deleteObject(s3Properties.getBucket(), getFileNameFromUrl(imageUrl));
+    }
 
     private String getPublicUrl(String fileName) {
         return String.format("https://%s.s3.%s.amazonaws.com/%s",
             s3Properties.getBucket(),
             amazonS3.getRegionName(),
             fileName);
+    }
+
+    private String getFileName(MultipartFile file) {
+        return UUID.randomUUID() + "_" + file.getOriginalFilename();
+    }
+
+    private String getFileNameFromUrl(String url) {
+        return url.substring(url.lastIndexOf('/') + 1);
     }
 }
