@@ -3,6 +3,7 @@ package io.github.Mine4Cut.Mine4Cut_server.service.auth;
 import io.github.Mine4Cut.Mine4Cut_server.domain.user.entity.User;
 import io.github.Mine4Cut.Mine4Cut_server.domain.user.repository.UserRepository;
 import io.github.Mine4Cut.Mine4Cut_server.exception.NotFoundException;
+import io.github.Mine4Cut.Mine4Cut_server.service.auth.dto.CustomUserDetails;
 import io.github.Mine4Cut.Mine4Cut_server.service.auth.dto.JwtUserInfo;
 import io.github.Mine4Cut.Mine4Cut_server.service.auth.dto.ParsedJwtInfo;
 import java.util.List;
@@ -18,14 +19,14 @@ import org.springframework.stereotype.Component;
 public class JwtUserService {
 
     private final UserRepository userRepository;
-    private final UserDetailsService userDetailsService;
+    private final CustomUserDetailsService userDetailsService;
 
     public JwtUserInfo toJwtUserInfo(User user) {
         return JwtUserInfo.of(user);
     }
 
     public Authentication toAuthentication(ParsedJwtInfo parsedJwtInfo) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(parsedJwtInfo.username());
+        CustomUserDetails userDetails = userDetailsService.loadUserByUsername(parsedJwtInfo.username());
         return new UsernamePasswordAuthenticationToken(userDetails, null,
             userDetails.getAuthorities());
     }
