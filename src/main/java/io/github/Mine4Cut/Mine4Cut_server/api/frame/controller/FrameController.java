@@ -62,7 +62,9 @@ public class FrameController {
         @AuthenticationPrincipal CustomUserDetails user
     ) throws AccessDeniedException {
 
-        storageService.deleteFrameImage(frameService.deleteFrame(user.getUserId(), frameId));
+        // storageService.deleteFrameImage(frameService.deleteFrame(user.getUserId(), frameId));
+
+        frameService.deleteFrame(user.getUserId(), frameId);
 
         return ApiResponse.ofDeletion();
     }
@@ -77,5 +79,25 @@ public class FrameController {
 
         return PageResponse.from(frameService.searchFrames(keyword,
             PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "likeCount"))));
+    }
+
+    @GetMapping("/myFrame")
+    public PageResponse<FrameDto> getMyFrames(
+        @AuthenticationPrincipal CustomUserDetails user,
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "10") int size
+    ) {
+        return PageResponse.from(frameService.getMyFrames(user.getUserId(),
+            PageRequest.of(page, size, Sort.by("createdAt").ascending())));
+    }
+
+    @GetMapping("/savedFrame")
+    public PageResponse<FrameDto> getSavedFrames(
+        @AuthenticationPrincipal CustomUserDetails user,
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "10") int size
+    ) {
+        return PageResponse.from(frameService.getSavedFrames(user.getUserId(),
+            PageRequest.of(page, size, Sort.by("createdAt").ascending())));
     }
 }
