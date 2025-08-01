@@ -28,7 +28,7 @@ public class SaveService {
             throw new BadRequestException("본인의 프레임은 저장할 수 없습니다.");
         }
 
-        if(savedFrameRepository.deleteSave(userId, frameId) > 0) {
+        if(savedFrameRepository.deleteByUserIdAndFrameId(userId, frameId) > 0) {
             frame.decreaseSave();
 
             return SaveDto.of(false, frame.getSaveCount());

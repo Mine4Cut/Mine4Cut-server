@@ -36,7 +36,7 @@ public class Frame extends BaseEntity {
     private int saveCount;
 
     public void decreaseLike() {
-        this.likeCount--;
+        if (this.likeCount > 0) this.likeCount--;
     }
 
     public void increaseLike() {
@@ -44,7 +44,7 @@ public class Frame extends BaseEntity {
     }
 
     public void decreaseSave() {
-        this.saveCount--;
+        if(this.saveCount > 0) this.saveCount--;
     }
 
     public void increaseSave() {
