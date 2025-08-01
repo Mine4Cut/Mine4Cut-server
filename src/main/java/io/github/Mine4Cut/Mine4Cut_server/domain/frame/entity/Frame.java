@@ -32,12 +32,23 @@ public class Frame extends BaseEntity {
     @Column
     private int likeCount;
 
+    @Column
+    private int saveCount;
+
     public void decreaseLike() {
-        this.likeCount--;
+        if (this.likeCount > 0) this.likeCount--;
     }
 
     public void increaseLike() {
         this.likeCount++;
+    }
+
+    public void decreaseSave() {
+        if(this.saveCount > 0) this.saveCount--;
+    }
+
+    public void increaseSave() {
+        this.saveCount++;
     }
 
     public void renameFrame(String frameName) {

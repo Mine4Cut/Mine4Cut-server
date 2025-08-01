@@ -1,7 +1,6 @@
 package io.github.Mine4Cut.Mine4Cut_server.domain.frameLike.entity;
 
 import io.github.Mine4Cut.Mine4Cut_server.common.entity.BaseEntity;
-import io.github.Mine4Cut.Mine4Cut_server.domain.frame.entity.Frame;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -18,10 +17,10 @@ public class FrameLike extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(nullable = false)
     private Long userId;
 
-    @Column
+    @Column(nullable = false)
     private Long frameId;
 
 }

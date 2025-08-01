@@ -67,7 +67,7 @@ public class FrameController {
         return ApiResponse.ofDeletion();
     }
 
-    @GetMapping("/search")
+    @GetMapping
     public PageResponse<FrameDto> searchFrames(
         @RequestParam("kw") @Valid String keyword,
         @RequestParam(defaultValue = "0") int page,

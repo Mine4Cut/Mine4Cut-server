@@ -23,7 +23,7 @@ public class LikeService {
         Frame frame = frameRepository.findById(frameId)
             .orElseThrow(() -> new NotFoundException("프레임을 찾을 수 없습니다."));
 
-        if(frameLikeRepository.deleteLike(userId, frameId) > 0) {
+        if(frameLikeRepository.deleteByUserIdAndFrameId(userId, frameId) > 0) {
             frame.decreaseLike();
 
             return LikeDto.of(false, frame.getLikeCount());

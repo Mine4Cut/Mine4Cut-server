@@ -1,4 +1,4 @@
-package io.github.Mine4Cut.Mine4Cut_server.api.like;
+package io.github.Mine4Cut.Mine4Cut_server.api.frame.controller;
 
 import io.github.Mine4Cut.Mine4Cut_server.common.dto.ApiResponse;
 import io.github.Mine4Cut.Mine4Cut_server.service.auth.dto.CustomUserDetails;
@@ -15,7 +15,7 @@ public class LikeController {
 
     private final LikeService likeService;
 
-    @PostMapping("/{frameId}/like")
+    @PostMapping("/{frameId}/likes")
     public ApiResponse<LikeDto> toggleLike(
         @PathVariable Long frameId,
         @AuthenticationPrincipal CustomUserDetails user

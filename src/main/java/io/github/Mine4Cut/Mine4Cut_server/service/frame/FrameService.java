@@ -3,6 +3,7 @@ package io.github.Mine4Cut.Mine4Cut_server.service.frame;
 import io.github.Mine4Cut.Mine4Cut_server.domain.frame.entity.Frame;
 import io.github.Mine4Cut.Mine4Cut_server.domain.frame.repository.FrameRepository;
 import io.github.Mine4Cut.Mine4Cut_server.domain.frameLike.repository.FrameLikeRepository;
+import io.github.Mine4Cut.Mine4Cut_server.domain.savedFrame.repository.SavedFrameRepository;
 import io.github.Mine4Cut.Mine4Cut_server.exception.NotFoundException;
 import io.github.Mine4Cut.Mine4Cut_server.service.frame.dto.CreateFrameDto;
 import io.github.Mine4Cut.Mine4Cut_server.service.frame.dto.FrameDto;
@@ -20,6 +21,8 @@ public class FrameService {
     private final FrameRepository frameRepository;
 
     private final FrameLikeRepository frameLikeRepository;
+
+    private final SavedFrameRepository savedFrameRepository;
 
     @Transactional
     public CreateFrameDto createFrame(Long userId,
@@ -50,13 +53,29 @@ public class FrameService {
 
         frameLikeRepository.deleteByFrameId(frameId);
 
+        savedFrameRepository.deleteByFrameId(frameId);
+
         return frame.getImageUrl();
     }
 
     public Page<FrameDto> searchFrames(
         String keyword, Pageable pageable
     ) {
-        return frameRepository.
-            searchByKeyword(keyword, pageable).map(FrameDto::from);
+        return frameRepository
+            .searchByKeyword(keyword, pageable).map(FrameDto::from);
+    }
+
+    public Page<FrameDto> getMyFrames(
+        Long userId, Pageable pageable
+    ) {
+        return frameRepository
+            .findAllByUserId(userId, pageable).map(FrameDto::from);
+    }
+
+    public Page<FrameDto> getSavedFrames(
+        Long userId, Pageable pageable
+    ) {
+        return frameRepository
+            .findSavedFramesByUserId(userId, pageable).map(FrameDto::from);
     }
 }

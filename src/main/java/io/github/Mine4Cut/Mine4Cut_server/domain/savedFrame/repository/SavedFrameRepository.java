@@ -1,10 +1,10 @@
-package io.github.Mine4Cut.Mine4Cut_server.domain.frameLike.repository;
+package io.github.Mine4Cut.Mine4Cut_server.domain.savedFrame.repository;
 
-import io.github.Mine4Cut.Mine4Cut_server.domain.frameLike.entity.FrameLike;
+import io.github.Mine4Cut.Mine4Cut_server.domain.savedFrame.entity.SavedFrame;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 
-public interface FrameLikeRepository extends JpaRepository<FrameLike, Long> {
+public interface SavedFrameRepository extends JpaRepository<SavedFrame, Long> {
 
     @Modifying
     int deleteByUserIdAndFrameId(Long userId, Long frameId);
