@@ -62,7 +62,9 @@ public class FrameController {
         @AuthenticationPrincipal CustomUserDetails user
     ) throws AccessDeniedException {
 
-        storageService.deleteFrameImage(frameService.deleteFrame(user.getUserId(), frameId));
+        // storageService.deleteFrameImage(frameService.deleteFrame(user.getUserId(), frameId));
+
+        frameService.deleteFrame(user.getUserId(), frameId);
 
         return ApiResponse.ofDeletion();
     }

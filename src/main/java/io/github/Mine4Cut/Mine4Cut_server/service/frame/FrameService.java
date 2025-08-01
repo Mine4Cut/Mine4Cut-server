@@ -41,7 +41,7 @@ public class FrameService {
     }
 
     @Transactional
-    public String deleteFrame(Long userId, Long frameId) throws AccessDeniedException {
+    public void deleteFrame(Long userId, Long frameId) throws AccessDeniedException {
         Frame frame = frameRepository.findById(frameId)
             .orElseThrow(() -> new NotFoundException("프레임을 찾을 수 없습니다."));
 
@@ -49,13 +49,7 @@ public class FrameService {
             throw new AccessDeniedException("본인의 프레임만 삭제할 수 있습니다.");
         }
 
-        frameRepository.delete(frame);
-
-        frameLikeRepository.deleteByFrameId(frameId);
-
-        savedFrameRepository.deleteByFrameId(frameId);
-
-        return frame.getImageUrl();
+        frame.softDelete();
     }
 
     public Page<FrameDto> searchFrames(
@@ -77,5 +71,15 @@ public class FrameService {
     ) {
         return frameRepository
             .findSavedFramesByUserId(userId, pageable).map(FrameDto::from);
+    }
+
+    public String hardDeleteFrame(Frame frame) {
+        frameRepository.delete(frame);
+
+        frameLikeRepository.deleteByFrameId(frame.getId());
+
+        savedFrameRepository.deleteByFrameId(frame.getId());
+
+        return frame.getImageUrl();
     }
 }

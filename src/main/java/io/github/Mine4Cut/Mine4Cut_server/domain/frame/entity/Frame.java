@@ -1,8 +1,10 @@
 package io.github.Mine4Cut.Mine4Cut_server.domain.frame.entity;
 
-import io.github.Mine4Cut.Mine4Cut_server.common.entity.BaseEntity;
+import io.github.Mine4Cut.Mine4Cut_server.common.entity.SoftDeletable;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 
 @Entity
 @Table
@@ -10,7 +12,7 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class Frame extends BaseEntity {
+public class Frame extends SoftDeletable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
